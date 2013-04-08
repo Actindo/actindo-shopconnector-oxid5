@@ -1,0 +1,53 @@
+
+import "shop_customer_address.proto";
+
+
+
+
+// ============================================ Methods follow ===========================================================
+
+
+import "search_query.proto";
+
+
+message ShopCustomerSetDebKredIdRequest
+{
+  required string customer_id = 1;
+  required int32 deb_kred_id = 2;
+}
+
+message ShopCustomerSetDebKredIdResponse
+{
+  required string customer_id = 1;
+  required int32 deb_kred_id = 2;
+}
+
+
+
+// customers.list
+message ShopCustomersListRequest
+{
+  required string tmp = 1;
+
+  required int32 just_list = 2;
+  optional SearchQuery search_request = 3;
+}
+
+message ShopCustomersListResponse
+{
+  required int32 count = 1;
+  repeated ShopCustomer customers = 2;
+}
+
+
+// customers.count
+message ShopCustomersCountRequest
+{
+  required string tmp = 1;
+}
+
+message ShopCustomersCountResponse
+{
+  required int32 count = 1;
+  optional int32 max_deb_kred_id = 2;
+}

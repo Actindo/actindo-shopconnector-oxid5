@@ -1,0 +1,30 @@
+message AttributesTranslation
+{
+  required string language_code = 1;
+  required string name = 2;
+}
+
+message ArtikelAttributesName
+{
+  required string name_id = 1;
+  repeated AttributesTranslation translation = 2;
+}
+
+message ArtikelAttributesValues
+{
+  required string value_id = 1;
+  required string name_id = 2;
+  repeated AttributesTranslation translation = 3;
+}
+
+message ArtikelAttributesCombinationSimple
+{
+  required string value_id = 1;
+  required string name_id = 2;
+  required string attributes_model = 3;
+  optional double options_values_price = 4 [default = 0];
+  optional double options_values_weight = 5 [default = 0];
+  optional double l_bestand = 6 [default = 0];
+  optional int32 sort_order = 7;
+}
+

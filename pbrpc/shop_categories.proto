@@ -1,0 +1,115 @@
+
+
+
+message ShopCategory7
+{
+  required string categories_id = 1;
+  required string categories_name = 2;
+  optional string parent_id = 3;
+//  repeated ShopCategory5 children = 4;
+}
+
+message ShopCategory6
+{
+  required string categories_id = 1;
+  required string categories_name = 2;
+  optional string parent_id = 3;
+  repeated ShopCategory7 children = 4;
+}
+
+message ShopCategory5
+{
+  required string categories_id = 1;
+  required string categories_name = 2;
+  optional string parent_id = 3;
+  repeated ShopCategory6 children = 4;
+}
+
+message ShopCategory4
+{
+  required string categories_id = 1;
+  required string categories_name = 2;
+  optional string parent_id = 3;
+  repeated ShopCategory5 children = 4;
+}
+
+message ShopCategory3
+{
+  required string categories_id = 1;
+  required string categories_name = 2;
+  optional string parent_id = 3;
+  repeated ShopCategory4 children = 4;
+}
+
+
+message ShopCategory2
+{
+  required string categories_id = 1;
+  required string categories_name = 2;
+  optional string parent_id = 3;
+  repeated ShopCategory3 children = 4;
+}
+
+message ShopCategory1
+{
+  required string categories_id = 1;
+  required string categories_name = 2;
+  optional string parent_id = 3;
+  repeated ShopCategory2 children = 4;
+}
+
+message ShopCategory
+{
+  required string categories_id = 1;
+  required string categories_name = 2;
+  optional string parent_id = 3;
+  repeated ShopCategory1 children = 4;
+}
+
+
+message CategoryData
+{
+  required string tmp = 1;
+
+  message CategoryDataTranslation
+  {
+    required string language_code = 1;
+    optional string name = 2;
+  }
+  repeated CategoryDataTranslation description = 2;
+}
+
+
+// ============================================ Methods follow ===========================================================
+
+message ShopCategoriesResponse
+{
+  required int32 categories_count = 1;
+  repeated ShopCategory categories = 2;
+}
+
+
+
+message ShopCategoryActionRequest
+{
+  // add 
+  // delete
+  // above, below, append
+  // textchange
+  required string point = 1;
+
+  optional string id = 2;
+  optional string parent_id = 3;    // pid
+  optional string after_id = 4;     // aid
+
+  optional CategoryData data = 5;
+}
+
+message ShopCategoryActionResponse
+{
+  required bool ok = 1;
+  optional int32 errno = 2;
+  optional string error = 3;
+
+  optional string id = 4;
+}

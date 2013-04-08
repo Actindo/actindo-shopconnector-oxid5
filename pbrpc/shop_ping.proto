@@ -1,0 +1,5 @@
+
+message ShopPingResponse
+{
+  required string pong = 1;
+}

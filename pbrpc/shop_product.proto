@@ -1,0 +1,295 @@
+
+import "shop_product_ArtikelShopData.proto";
+import "shop_product_various.proto";
+import "shop_product_attributes.proto";
+
+
+message AttributeShopProduct
+{
+// ==================== Fields from ShopProduct ====================
+  // base data contained in products_list
+  required string art_nr = 1;
+  required string art_name = 2;
+  optional double grundpreis = 3;
+  optional bool is_brutto = 4 [default = true];
+  optional string categories_id = 5;
+  optional int32 products_status = 6;
+  optional int64 created = 7;
+  optional int64 last_modified = 8;
+  optional string products_id = 9;
+
+  optional float mwst = 10;
+  optional int32  mwst_stkey = 11;
+
+  optional double l_bestand = 12;
+
+  optional double weight = 13;
+  optional ArtikelWeightUnit weight_unit = 14;
+
+  repeated ArtikelDescription description = 16;
+
+  repeated ArtikelPriceBracket preisgruppen = 17;
+
+//  optional ArtikelAttributes attributes = 18;
+
+  repeated ArtikelImage images = 21;
+
+  optional string products_ean = 22;
+
+  optional ArtikelShopData shop = 23;
+
+  repeated ArtikelProperty properties = 24;
+
+  repeated ArtikelContent content = 25;
+
+  // reference to use in error messages
+  optional string reference = 26;
+
+  optional bool products_is_standard = 27;
+  
+  optional double ek = 28;
+// =================== /Fields from ShopProduct ====================
+}
+
+message ArtikelAttributesCombinationAdvanced
+{
+  required string art_nr = 1;
+
+  message Combination
+  {
+    required string value_id = 1;
+    required string name_id = 2;
+  }
+  repeated Combination combination = 2;
+
+  optional double l_bestand = 3;
+
+  repeated ArtikelPriceBracket preisgruppen = 4;
+
+  message CombinationAdvancedData
+  {
+    required bool products_status = 1;
+    optional bool products_is_standard = 2;
+  }
+  optional CombinationAdvancedData data = 5;
+
+  optional AttributeShopProduct shop = 6;
+
+  optional double grundpreis = 7;
+  optional bool is_brutto = 8;
+}
+
+message ArtikelAttributes
+{
+  repeated ArtikelAttributesName names = 1;
+  repeated ArtikelAttributesValues values = 2;
+
+  repeated ArtikelAttributesCombinationSimple combination_simple = 3;
+
+  repeated ArtikelAttributesCombinationAdvanced combination_advanced = 4;
+  optional bool other_combinations_dont_exist = 5;
+}
+
+
+message ShopProduct
+{
+  // base data contained in products_list
+  required string art_nr = 1;
+  required string art_name = 2;
+  optional double grundpreis = 3;
+  optional bool is_brutto = 4 [default = true];
+  optional string categories_id = 5;
+  optional int32 products_status = 6;
+  optional int64 created = 7;
+  optional int64 last_modified = 8;
+  optional string products_id = 9;
+
+  optional float mwst = 10;
+  optional int32  mwst_stkey = 11;
+
+  optional double l_bestand = 12;
+
+  optional double weight = 13;
+  optional ArtikelWeightUnit weight_unit = 14;
+  optional double ek = 28;
+
+  repeated ArtikelDescription description = 16;
+
+  repeated ArtikelPriceBracket preisgruppen = 17;
+
+  optional ArtikelAttributes attributes = 18;
+
+  repeated ArtikelImage images = 21;
+
+  optional string products_ean = 22;
+
+  optional ArtikelShopData shop = 23;
+
+  repeated ArtikelProperty properties = 24;
+
+  repeated ArtikelContent content = 25;
+
+  // reference to use in error messages
+  optional string reference = 26;
+
+  optional bool products_is_standard = 27;
+  optional string products_mpn = 29;
+  repreated MultiStorePermission multistore_permisstion=30;
+}
+
+message MultiStorePermission
+  {
+  required int32 included=1;
+  }
+
+message ShopListProduct
+{
+  // base data contained in products_list
+  required string products_id = 1;
+  required double grundpreis = 2;
+  optional bool is_brutto = 3 [default = true];
+  required int32 categories_id = 4;
+  required int32 products_status = 5;
+  required int64 created = 6;
+  required int64 last_modified = 7;
+  required string art_nr = 8;
+  required string art_name = 9;
+}
+
+
+
+message ShopLagerUpdateProduct
+{
+  required string art_nr = 1;
+  required double l_bestand = 2;
+
+  optional string shipping_status = 3;
+  optional string shipping_status_text = 4;
+
+  optional int32 products_status = 5;
+
+  optional ArtikelAttributes attributes = 6;
+
+  optional string reference = 7;
+}
+
+
+
+
+// ============================================ Methods follow ===========================================================
+
+
+
+import "search_query.proto";
+
+
+// product.list
+message ShopProductListRequest
+{
+  required string tmp = 1;
+
+  // either art_nr OR search_request
+  optional string art_nr = 2;
+  optional SearchQuery search_request = 3;
+}
+
+message ShopProductListResponse
+{
+  required int32 count = 1;
+  repeated ShopListProduct products = 2;
+}
+
+
+// product.get
+message ShopProductGetRequest
+{
+  required string tmp = 1;
+
+  // either art_nr OR search_request
+  optional string art_nr = 2;
+  optional SearchQuery search_request = 3;
+}
+
+message ShopProductGetResponse
+{
+  required int32 count = 1;
+  repeated ShopProduct products = 2;
+}
+
+
+// product.create_update
+message ShopProductCreateUpdateRequest
+{
+  required string tmp = 1;
+
+  repeated ShopProduct products = 2;
+}
+
+message ProductResult
+{
+  required int32 index = 1;
+  required string art_nr = 2;
+
+  required bool ok = 3;
+  optional int32 errno = 4;
+  optional string error = 5;
+
+  optional string warning = 6;
+
+  optional string reference = 7;
+}
+
+message ShopProductCreateUpdateResponse
+{
+  required int32 count = 1;
+  repeated ProductResult result = 2;
+}
+
+
+// product.delete
+message ShopProductDeleteRequest
+{
+  required string tmp = 1;
+
+  message DeleteProduct
+  {
+    required string art_nr = 1;
+    optional string reference = 2;
+  }
+  repeated DeleteProduct products = 2;
+}
+
+message ShopProductDeleteResponse
+{
+  required int32 count = 1;
+  repeated ProductResult result = 2;
+}
+
+
+
+message ShopProductCountResponse
+{
+  required int32 product_count = 1;
+
+  message ProductCountByCategory
+  {
+    required string category_id = 1;
+    required int32 product_count = 2;
+  }
+  repeated ProductCountByCategory count_by_category = 2;
+}
+
+
+
+message ShopLagerUpdateRequest
+{
+  required string tmp = 1;
+
+  repeated ShopLagerUpdateProduct arts = 2;
+}
+
+message ShopLagerUpdateResponse
+{
+  required int32 count = 1;
+  repeated ProductResult result = 2;
+}

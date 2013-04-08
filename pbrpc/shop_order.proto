@@ -1,0 +1,270 @@
+
+
+import "shop_customer_address.proto";
+
+
+message ShopOrdersCountResponse
+{
+  required int32 count = 1;
+  optional int32 max_order_id = 2;
+}
+
+
+message Payment_CC
+{
+  // credit card type
+  required string cr_type = 1;
+  // name as it appears on card
+  // name as it appears on card
+  required string cr_nameoncard = 2;
+  // cc number
+  required string cr_nr = 3;
+  // cc valid to
+  required string cr_valid_to = 4;
+  // cvv
+  required string cr_cvv = 5;
+
+  optional string payment_provider = 6;
+  optional string payment_provider_trx_no = 7;
+}
+
+message Payment_L
+{
+  required bool address_iban = 1;
+  required string kto = 2;
+  required string blz = 3;
+  required string iban = 4;
+  required string bic = 5;
+  required string kto_inhaber = 6;
+}
+
+message Payment_PP
+{
+  required string email = 1;
+  optional string trx_no = 2;
+  optional string type = 3[default="payment"];
+  optional string payer_id = 4;
+}
+
+message Payment_Factoring
+{
+  // Receipient Name
+  required string recipient = 1;
+  // Currency Code
+  required string currencyCode = 2;
+  optional string bankCode = 3;
+  optional string accountNumber = 4;
+  optional string bankName = 5;
+  optional string bic = 6;
+  optional string iban = 7;
+  // Verwendungszweck
+  optional string reference = 8;
+  optional double amount = 9;
+  // Hinweis des Factorers  ('Bitte überweisen Sie bis xx.xx.xxxx' oder ähnlicher Freitext)
+  optional string note = 10;
+  // (Textueller Hinweis zur Forderungsabtretung)
+  optional string legalNote = 11;
+}
+
+message OrderPayment
+{
+/*
+    'E'  => 'Einzug',
+    'L'  => 'Lastschrift',
+    'U'  => 'Rechnung (Überweisung)',
+    'NN' => 'Nachnahme',
+    'KK' => 'Kreditkarte',
+    'VK' => 'Vorauskasse',
+    'B'  => 'Barverkauf',
+    'PP' => 'PayPal',
+    'CB' => 'ClickandBuy',
+    'MB' => 'moneybookers',
+    'MP' => 'mpass',
+    'ID' => 'iDEAL',
+    'SU' => 'Sofortüberweisung',
+    'AZ' => 'Amazon Payment',
+    'GP' => 'GiroPay',
+    'UT' => 'United Transfer',
+    'EC' => 'EC-Karte',
+    'FZ' => 'Finanzierung',
+    'PM' => 'Paymorrow',
+    'BS' => 'BillSAFE',
+    'KL' => 'Klarna',
+    'SG' => 'Shopgate',
+    'M'  => 'MeinPaket',
+    'SS' => 'Shopshare',
+    'HM' => 'Hitmeister',
+    'BP' => 'BillPay',
+    'PR' => 'Prepaid'
+*/
+  required string type = 1;
+  optional Payment_CC cc = 2;
+  optional Payment_L ls = 3;
+  optional Payment_PP pp = 4;
+  optional Payment_Factoring factoring = 5;
+}
+
+message ShopOrder
+{
+  // shop base order data
+  required string order_id = 1;
+  required string external_order_id = 2;
+  required string _customers_id = 3;
+
+  // actindo
+  required int64 deb_kred_id = 4;
+  required ShopCustomer customer = 5;
+
+  required string webshop_order_date = 6;
+  required string webshop_order_time = 7;
+
+  required string bill_date = 6;
+  required string val_date = 7;
+
+  required string beleg_status_text = 8;
+
+
+  required OrderPayment payment = 9;
+
+
+  required string currency = 10;
+  required double currency_value = 11;
+
+  required double netto = 12;
+  required double netto2 = 13;
+
+  message ShopOrderRabatt
+  {
+    required string rabatt_type = 1;
+    optional double rabatt_prozent = 2;
+    optional double rabatt_betrag = 3;
+  }
+  optional ShopOrderRabatt rabatt = 14;
+
+  required double saldo = 15;
+
+  optional int32 orders_status = 16;
+  optional string _payment_method = 17;
+  optional int32 subshop_id = 18;
+  
+  optional string webshop_order_klarna_order_id = 19;
+  optional string webshop_order_klarna_pclass = 20;
+
+  optional string onetierarztnr = 21;
+}
+
+message ShopOrdersListResponse
+{
+  required int32 count = 1;
+  repeated ShopOrder orders = 2;
+}
+
+
+
+import "search_query.proto";
+
+
+message ShopOrdersListRequest
+{
+  required string tmp = 1;
+  optional SearchQuery search_request = 2;
+}
+
+// ----------------------------- POSITIONS -------------------------------
+message OrderPosition
+{
+  required string art_nr = 1;
+  required string art_name = 2;
+
+  required double preis = 3;
+  required bool is_brutto = 4;
+  required string type = 5;
+  required double mwst = 6;
+  required double menge = 7;
+
+  optional string langtext = 8;
+
+  // for xtc3 -> attributshauptartikel
+  optional string art_nr_base = 9;
+
+  // delivery, payment, wrap, card
+  optional string subtype = 10;
+}
+
+message ShopOrdersPositionsResponse
+{
+  required int32 n_pos = 1;
+  repeated OrderPosition positions = 2;
+}
+
+message ShopOrdersPositionsRequest
+{
+  required string order_id = 1;
+}
+
+
+
+// ----------------------------- STATUS ----------------------------------
+message ShopOrderSetStatusRequest
+{
+  required string order_id = 1;
+
+  required bool send_customer = 2;
+
+  optional int32 status_id = 3;
+
+  optional string comment = 4;
+  optional bool send_comments = 5;
+
+  optional bool set_sent = 6;
+  optional string sent_date = 7;
+
+  optional bool set_paid = 8;
+  optional string paid_date = 9;
+
+  optional string bill_nr = 10;
+
+  optional bool sent_state = 11;
+  optional bool paid_state = 12;
+}
+
+message ShopOrderSetStatusResponse
+{
+  required string order_id = 1;
+
+  required string send_customer = 2;
+
+  optional bool send_comments = 3;
+  optional bool set_sent = 4;
+  optional bool set_paid = 5;
+  optional bool status_set = 5;
+
+  optional bool bill_nr_set = 6;
+}
+
+
+// ----------------------------- TRACKINGCODE ----------------------------
+message ShopOrderSetTrackingcodeRequest
+{
+  required string order_id = 1;
+
+  required string trackingcode = 2;
+  optional string shipper = 3;
+
+  optional string send_date = 4;
+  optional string expected_arrival = 5;
+}
+
+message ShopOrderSetTrackingcodeResponse
+{
+  required string order_id = 1;
+
+  required bool trackingcode_set = 2;
+  optional bool shipper_set = 3;
+
+  optional bool send_date_set = 4;
+  optional bool expected_arrival_set = 5;
+}
+
+
+

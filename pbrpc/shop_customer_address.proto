@@ -1,0 +1,51 @@
+
+message ShopCustomerAddress
+{
+  required int32 delivery_address_id = 1;
+  required string email = 2;
+
+  optional string anrede = 3;
+  optional string kurzname = 4;
+  optional string name = 5;
+  optional string vorname = 6;
+  optional string firma = 7;
+
+  optional string adresse = 8;
+  optional string adresse2 = 9;
+  optional string ort = 10;
+  optional string plz = 11;
+  optional string blnd = 12;
+  optional string land = 13;
+  optional string tel = 14;
+  optional string fax = 15;
+  optional string mobiltel = 16;
+  optional string langcode = 17;
+
+  optional string ustid = 18;
+
+  optional string tel2 = 19;
+  optional string url = 20;
+}
+message ShopCustomer
+{
+  required int64 deb_kred_id = 1;
+
+  required ShopCustomerAddress address = 2;
+
+  required bool delivery_as_customer = 3 [default=1];
+  optional ShopCustomerAddress delivery_address = 4;
+
+  optional string gebdat = 5;
+
+  optional string verf = 6;
+
+  optional string _customers_id = 7;
+  optional bool print_brutto = 8 [default=true];
+  optional string currency = 9 [default="EUR"];
+
+  repeated ShopCustomerAddress other_delivery_addresses = 10;
+
+  optional int32 preisgruppe = 11;
+  
+  optional string onetierarztnr = 12;
+}

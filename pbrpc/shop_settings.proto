@@ -1,0 +1,144 @@
+
+message ShopSettingsResponse
+{
+  required int64 timestamp = 1;
+
+  message Language
+  {
+    required string language_code = 1;
+    required string language_name = 2;
+    optional int32 language_id = 3;
+    optional bool is_default = 4;
+  }
+  repeated Language languages = 2;
+
+  message Manufacturer
+  {
+    required string manufacturers_id = 1;
+    required string manufacturers_name = 2;
+  }
+  repeated Manufacturer manufacturers = 3;
+
+  message OrderStatus
+  {
+    required string id = 1;
+    required string name = 2;
+  }
+  repeated OrderStatus orders_status = 4;
+
+  message CustomerStatus
+  {
+    required int32 customers_status_id = 1;
+    required string customers_status_name = 2;
+    optional string customers_status_internal_id = 3;
+
+    optional double customers_status_min_order = 4;
+  }
+  repeated CustomerStatus customers_status = 5;
+
+  message XSellGroup
+  {
+    required string products_xsell_grp_name_id = 1;
+    required string groupname = 2;
+    optional int32 xsell_sort_order = 3;
+  }
+  repeated XSellGroup xsell_groups = 6;
+
+  message InstalledModule
+  {
+    required string code = 1;
+    required string name = 2;
+    required bool active = 3;
+    optional string description = 4;
+  }
+  repeated InstalledModule installed_payment_modules = 7;
+  repeated InstalledModule installed_shipping_modules = 8;
+
+  message InstalledTemplate
+  {
+    required string id = 1;
+    required string name = 2;
+  }
+  repeated InstalledTemplate info_template = 9;
+  repeated InstalledTemplate options_template = 10;
+
+  message ArtikelPropertySet
+  {
+    required string id = 1;
+    required string name = 2;
+    required bool comparable = 3;
+    optional int32 position = 4;
+  }
+  repeated ArtikelPropertySet artikel_property_sets = 11;
+
+  message ArtikelPropertyFieldValue
+  {
+    required string value = 1;
+    required string text = 2;
+  }
+  enum ArtikelPropertyFieldType
+  {
+    textfield = 0;
+    numberfield = 1;
+    textarea = 2;
+    combobox = 3;
+    boolean = 4;
+    datefield = 5;
+    timefield = 6;
+  }
+  message ArtikelProperty
+  {
+    required string field_id = 1;
+    required string field_name = 2;
+    required bool field_i18n = 3;
+    required string field_set = 4;
+    required bool field_noempty = 5;
+    required ArtikelPropertyFieldType field_type = 6;
+
+    repeated string field_set_ids = 7;
+    optional string field_help = 8;
+
+    repeated ArtikelPropertyFieldValue field_values = 9;    // only for field_type==ArtikelPropertyFieldType.combobox
+  }
+  repeated ArtikelProperty artikel_properties = 12;
+
+
+  message Vendor
+  {
+    required string vendors_id = 1;
+    required string vendors_name = 2;
+  }
+  repeated Vendor vendors = 13;
+
+  message ShippingTime
+  {
+    required string shippingtime_id = 1;
+    required string shippingtime_name = 2;
+  }
+  repeated ShippingTime shipping = 14;
+
+  message VPELang
+  {
+    required string vpe_lang_id = 1;
+    required string vpe_lang_name = 2;
+  }
+  message VPE
+  {
+    required string vpe_id = 1;
+    repeated VPELang lang = 2;
+  }
+  repeated VPE vpe = 15;
+
+  message MultiStores
+  {
+  required int32 id = 1;
+  required int32 parent_id = 2;
+  required string name = 3;
+  required string url_http = 4;
+  required string url_https = 5;
+  required bool active = 6;
+  required bool is_inherited = 7;
+  }
+
+  repeated MultiStores multistores=16;
+}

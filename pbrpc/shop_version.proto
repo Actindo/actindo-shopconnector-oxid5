@@ -1,0 +1,31 @@
+
+message ShopVersionResponse
+{
+  required string xmlrpc_server_revision = 1;
+  required string interface_type = 2;
+
+  required string shop_type = 3;
+  required string shop_version = 4;
+  required string revision = 5;
+  required string protocol_version = 6;
+  required string default_charset = 7;
+
+  message Capability
+  {
+    required string name = 1;
+    required bool capable = 2;
+  }
+  repeated Capability capabilities = 8;
+
+  optional string php_version = 9;
+  optional string zend_version = 10;
+  optional string cpuinfo = 11;
+  optional string meminfo = 12;
+  optional bytes phpinfo = 13;
+  message PhpExtension
+  {
+    required string name = 1;
+    required string version = 2;
+  }
+  repeated PhpExtension extensions = 14;
+}

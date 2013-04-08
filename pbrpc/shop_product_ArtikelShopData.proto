@@ -1,0 +1,84 @@
+
+message ArtikelShopData
+{
+  required int32 products_id = 1;
+  required int32 products_status = 2;
+  required int32 products_status_lager_zero = 3;
+
+  optional int64 products_date_available = 4;
+
+  optional bool products_startpage = 5;
+  optional int32 products_startpage_sort = 6;
+
+  optional int32 products_sort = 7;
+
+  optional string manufacturers_id = 8;
+
+  optional bool products_vpe_status = 9;
+  optional double products_vpe_value = 10;
+  optional string products_vpe = 11;
+
+  optional bool fsk18 = 12;
+  optional double products_weight = 13;
+
+
+  optional string shipping_status = 14;               // ID of status if available
+  optional string shipping_status_lager_zero = 15;    // ID of status if NOT available
+  optional string shipping_status_text = 16;          // Text if available
+  optional string shipping_status_lager_zero_text = 17; // Text if NOT available
+
+  optional string info_template = 18;
+  optional string options_template = 19;
+
+  message ArtikelCategory
+  {
+    required string categories_id = 1;
+  }
+  repeated ArtikelCategory all_categories = 20;
+
+  message ArtikelGroupPermission
+  {
+    required string group_id = 1;
+    required int32 perm = 2;
+  }
+  repeated ArtikelGroupPermission group_permission = 21;
+
+  message ArtikelXSelling
+  {
+    required string group_id = 1;
+    required string art_nr = 2;
+    optional int32 sort_order = 3 [default = 0];
+  }
+  repeated ArtikelXSelling xselling = 22;
+
+  optional int64 activeto = 23;
+  optional bool topseller = 24;
+  optional string suppliernumber = 25;
+  optional bool products_digital = 26;
+  optional int32 pseudosales = 27;
+  optional bool shipping_free = 28;
+  optional string products_option_list_template = 29;
+
+  message ArtikelPseudoPrice
+  {
+    required int32 preisgruppe = 1;
+    required double pseudoprice = 2;
+  }
+  repeated ArtikelPseudoPrice products_pseudoprices = 30;
+
+  optional string filtergroup_id = 31;
+  optional string supplierean = 32;
+
+  optional double length = 33;
+  optional double width = 34;
+  optional double height = 35;
+
+  optional string vendors_id = 36;
+
+  optional bool nonmaterial = 37;
+  optional bool non_searchable = 38;
+  optional bool skipdiscounts = 39;
+  optional bool fixedprice = 40;
+  optional string products_mpn = 41;
+}
+

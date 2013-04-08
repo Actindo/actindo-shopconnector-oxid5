@@ -1,0 +1,67 @@
+
+
+message SearchQueryFilterData
+{
+  enum FilterType
+  {
+    DateFilter = 1;
+    ListFilter = 2;
+    BooleanFilter = 3;
+    StringFilter = 4;
+    NumericFilter = 5;
+  }
+  required FilterType type = 1;
+
+  enum Comparison
+  {
+    lt = 1;   // <
+    le = 2;   // <=
+    gt = 3;   // >
+    ge = 4;   // >=
+    eq = 5;   // ==  (or = for mysql)
+    ne = 6;   // !=  (or <> for mysql)
+  }
+  optional Comparison comparison = 2;
+
+  // encoded data
+  // always string
+  // * if $type == 'date' : string like 'YYYY-MM-DD',
+  // * if $type == 'list' : array of strings
+  // * if $type == 'boolean': boolean (true, false), int (0, not 0) or string ('true', 'false')
+  // * if $type == 'string': string
+  // * if $type == 'numeric': float
+  optional string value = 3;
+}
+
+message SearchQueryFilter
+{
+  required string field = 1;
+  required SearchQueryFilterData data = 2;
+}
+message SearchQuery
+{
+  enum LimitType
+  {
+    NONE = 0;
+    PAGENO = 1;
+    START_LIMIT = 2;
+  }
+  required LimitType limit_type = 1;
+
+  // if limit_type == PAGENO
+  optional int32 pageno = 2;
+  optional int32 n_per_page = 3;
+
+  // if limit_type == START_LIMIT
+  optional int32 start = 4;
+  optional int32 limit = 5;
+
+  optional string sortColName = 6;
+  optional string sortOrder = 7;
+
+  optional string searchText = 8;
+  optional string searchColumns = 9;
+
+  repeated SearchQueryFilter filter = 10;
+}
+

@@ -1,0 +1,12 @@
+
+message ShopTimeResponse
+{
+  required string time_server = 1;
+  required string gmtime_server = 2;
+  required int32 diff_seconds = 3;
+  required string diff = 4;
+
+  optional string time_database = 5;
+  optional string gmtime_database = 6;
+
+}

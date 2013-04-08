@@ -1,0 +1,117 @@
+
+message ShopConn_Order
+{
+  // shop base order data
+  required string order_id = 1;
+  required string external_order_id = 2;
+  required string customers_id = 3;
+
+  // actindo
+  required int64 deb_kred_id = 4;
+  message Customer
+  {
+    required int64 deb_kred_id = 1;
+
+    message Address
+    {
+      required int32 delivery_address_id = 1;
+      required string anrede = 2;
+      required string kurzname = 3;
+      required string name = 4;
+      required string vorname = 5;
+      required string firma = 6;
+      required string adresse = 7;
+      required string adresse2 = 8;
+      required string ort = 9;
+      required string plz = 10;
+      required string blnd = 11;
+      required string land = 12;
+      required string tel = 13;
+      required string fax = 14;
+      required string mobiletel = 15;
+      required string email = 16;
+      required string langcode = 17;
+    }
+    required Address address = 2;
+
+    required bool delivery_as_customer_address = 3;
+    optional Address delivery_address = 4;
+
+    required int32 gebdat = 5;
+
+    required string verf = 6;
+  }
+  required Customer customer = 5;
+
+  required string webshop_order_date = 6;
+  required string webshop_order_time = 7;
+
+  required string bill_date = 6;
+  required string val_date = 7;
+
+  required string beleg_status_text = 8;
+
+  message Payment
+  {
+    // 'E' => 'Einzug', 'L' => 'Lastschrift', 'U' => 'Rechnung (Überweisung)',
+    // 'NN' => 'Nachnahme', 'KK' => 'Kreditkarte', 'VK' => 'Vorauskasse',
+    // 'B' => 'Barverkauf', 'PP' => 'PayPal', 'ID' => 'iDEAL', 'SU' => 'Sofortüberweisung', 'AZ' => 'Amazon Payment',
+    // 'GP' => 'GiroPay', 'UT' => 'United Transfer', 'EC' => 'EC-Karte', 'FZ' => 'Finanzierung'
+    required string type = 1;
+
+    message Payment_CC
+    {
+      // credit card type
+      required string cr_type = 1;
+      // name as it appears on card
+      required string cr_nameoncard = 2;
+      // cc number
+      required string cr_nr = 3;
+      // cc valid to
+      required string cr_valid_to = 4;
+      // cvv
+      required string cr_cvv = 5;
+
+      optional string payment_provider = 6;
+      optional string payment_provider_trx_no = 7;
+    }
+    optional Payment_CC cc = 2;
+
+    message Payment_L
+    {
+      required bool address_iban = 1;
+      required string kto = 2;
+      required string blz = 3;
+      required string iban = 4;
+      required string bic = 5;
+      required string kto_inhaber = 6;
+    }
+    optional Payment_L ls = 3;
+
+    message Payment_PP
+    {
+      required string email = 1;
+      optional string trx_no = 2;
+    }
+    optional Payment_PP pp = 4;
+  }
+  required Payment payment = 9;
+
+
+  required string currency = 10;
+  required double currency_value = 11;
+
+  required double netto = 12;
+  required double netto2 = 13;
+
+  message Rabatt
+  {
+    required string rabatt_type = 1;
+    optional double rabatt_prozent = 2;
+    optional double rabatt_betrag = 3;
+  }
+  optional Rabatt rabatt = 14;
+
+  required double saldo = 15;
+
+}

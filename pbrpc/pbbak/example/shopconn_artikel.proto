@@ -1,0 +1,117 @@
+
+message ShopConn_Artikel
+{
+  // base data contained in products_list
+  required int32 products_id = 1;
+  required double grundpreis = 2;
+  optional bool is_brutto = 3 [default = true];
+  required int32 categories_id = 4;
+  required int32 products_status = 5;
+  required int64 created = 6;
+  required int64 last_modified = 7;
+  required string art_nr = 8;
+  required string art_name = 9;
+
+  optional float mwst = 10;
+  optional int32  mwst_stkey = 11;
+
+  optional double l_bestand = 12;
+
+  enum WeightUnit {
+    kg = 0;
+    g = 1;
+    t = 2;
+  }
+  optional double weight = 13;
+  optional WeightUnit weight_unit = 14;
+
+  message ArtikelCategory
+  {
+    required int64 cat_id = 1;
+  }
+  repeated ArtikelCategory all_categories = 15;
+
+  message ArtikelDescription
+  {
+    required string language_code = 1;
+    optional int32 language_id = 2;
+    required string products_name = 3;
+    // more to come
+  }
+  repeated ArtikelDescription description = 16;
+
+  message ArtikelPreisStaffel
+  {
+    required double preis_gruppe = 1;
+    required double preis_range = 2;
+  }
+  message ArtikelPriceBracket
+  {
+    required int32 preisgruppe = 1;
+    required bool is_brutto = 2;
+    required double grundpreis = 3;
+
+    repeated ArtikelPreisStaffel preisstaffeln = 4;
+  }
+  repeated ArtikelPriceBracket preisgruppen = 17;
+
+  message AttributesTranslation
+  {
+    required string language_code = 1;
+    required string name = 2;
+  }
+  message ArtikelAttributesName
+  {
+    required int32 name_id = 1;
+    repeated AttributesTranslation translation = 2;
+  }
+  message ArtikelAttributesValues
+  {
+    required int32 value_id = 1;
+    required int32 name_id = 2;
+    repeated AttributesTranslation translation = 3;
+  }
+  message ArtikelAttributesCombinationSimple
+  {
+    required int32 value_id = 1;
+    required int32 name_id = 2;
+    required string attributes_model = 3;
+    optional double options_values_price = 4 [default = 0];
+    optional double options_values_weight = 5 [default = 0];
+    optional double l_bestand = 6 [default = 0];
+    optional int32 sort_order = 7;
+  }
+  message ArtikelAttributes
+  {
+    repeated ArtikelAttributesName names = 1;
+    repeated ArtikelAttributesValues values = 2;
+    repeated ArtikelAttributesCombinationSimple combination_simple = 3;
+//    repeated ArtikelAttributesCombinationAdvanced combination_advanced = 4;
+  }
+  optional ArtikelAttributes attributes = 18;
+
+  message ArtikelXSelling
+  {
+    required int32 group_id = 1;
+    required string art_nr = 2;
+    optional int32 sort_order = 3 [default = 0];
+  }
+  repeated ArtikelXSelling xselling = 19;
+
+  message ArtikelGroupPermission
+  {
+    required int32 group_id = 1;
+    required int32 perm = 2;
+  }
+  repeated ArtikelGroupPermission group_permission = 20;
+
+  message ArtikelImage
+  {
+    required int32 image_nr = 1;
+    required string image_name = 2;
+    required string image_type = 3;
+    required bytes image = 4;
+    optional string image_subfolder = 5;
+  }
+  repeated ArtikelImage images = 21;
+}

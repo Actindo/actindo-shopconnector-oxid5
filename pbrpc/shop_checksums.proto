@@ -1,0 +1,24 @@
+
+
+
+message ShopChecksumRequest
+{
+  required string subdirectory = 1;
+  required string pattern = 2;
+  required string checksum_type = 3;    // FILESIZE || MD5 || SHA1 || MD5-TRIM || SHA1-TRIM || SIZE || SIZE-TRIM
+  required bool recursive = 4;
+}
+
+// ----------------------------- POSITIONS -------------------------------
+message FileChecksum
+{
+  required string path = 1;
+  required string checksum = 2;
+}
+
+message ShopChecksumResponse
+{
+  required int32 n_sums = 1;
+  repeated FileChecksum checksums = 2;
+}
+
