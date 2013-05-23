@@ -1,8 +1,7 @@
-Untestet betaversion.
-suitable for oxid ee>=5.0 pe >=5.0 ce>=4.7
+This Github-version is alwasy Nightly Build
 
-Follow changes for release.
-No known issues at the moment.
+For the final release see http://wiki.actindo.de.
+
 ===========================
 actindo-shopconnector-oxid5
 ===========================

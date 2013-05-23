@@ -8,11 +8,11 @@
  **
  * @package actindo
  * @author  Patrick Prasse <pprasse@actindo.de>
- * @version $Revision: 3000 $
+ * @version $Revision: 3001g$
  * @copyright Copyright (c) 2007, Patrick Prasse (Schneebeerenweg 26, D-85551 Kirchheim, GERMANY, pprasse@actindo.de)
  */
 
-define( 'ACTINDO_SHOPCONN_REVISION', '$Revision: 3000 $' );
+define( 'ACTINDO_SHOPCONN_REVISION', '$Revision: 3001g$' );
 define( 'ACTINDO_PROTOCOL_REVISION', '2.'.substr( ACTINDO_SHOPCONN_REVISION, 11, -2 ) );
 
 /* change dir into admin interface and include application_top.php */
@@ -182,7 +182,7 @@ function _recurse_categories( $cat, &$category, $depth=1 )
 }
 
 function _get_debitnote_paymentdata( $oxpaymentid ) {
-  require_once getShopBasePath() . 'core/oxuserpayment.php';
+  require_once getShopBasePath() . 'application/models/oxuserpayment.php';
   $ouPayment = new oxUserPayment();
   $key = $ouPayment->getPaymentKey();
 
@@ -466,18 +466,13 @@ function settings_get( $params )
   }
 //  var_dump($GLOBALS['myConfig']);
 
-  // Cross-Selling, Zubehör & Artikel dazu
+  // Cross-Selling, Zubehör
   for( $i=1; $i<=2; $i++ )
   {
     $xsg = $response->add_xsell_groups();
     $xsg->set_products_xsell_grp_name_id( $i );
     $xsg->set_groupname( $i == 1 ? 'Zubehoer-Artikel' : 'Crosssellings' );
   }
-
-  // "Artikel dazu"
-  $xsg = $response->add_xsell_groups();
-  $xsg->set_products_xsell_grp_name_id( 3 );
-  $xsg->set_groupname( 'Artikel dazu (nur 1 Artikel!)' );
 
 
   // info_template
@@ -673,7 +668,7 @@ function actindo_get_time( $params )
  */
 function shop_get_connector_version( &$response )
 {
-  $revision = '$Revision: 3000 $';
+  $revision = '$Revision: 3001g$';
   $response->set_revision( $revision );
   $response->set_protocol_version( '2.'.substr( $revision, 11, -2 ) );
   $response->set_shop_type( act_get_shop_type( ) );
