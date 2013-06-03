@@ -385,16 +385,8 @@ function __import_single_product( &$product, &$result )
     $arr['oxurldesc'] = $product->description(0)->products_url();
   }
 
-
-  if( $GLOBALS['myConfig']->getRevision() < 18998 )
-  {
-    $arr['oxvendorid'] = $shop_art->manufacturers_id();
-  }
-  else
-  {
     $arr['oxvendorid'] = $shop_art->vendors_id();
     $arr['oxmanufacturerid'] = $shop_art->manufacturers_id();
-  }
 
   $_pp_map = array(
     -1 => 'oxtprice',
@@ -830,15 +822,9 @@ function _do_import_attributes( $art_oxid, &$product, &$result )
             'oxbprice'=>$attrproduct->ek()?$attrproduct->ek():$product->ek(), 
           );
 
-          if( $GLOBALS['myConfig']->getRevision() < 18998 )
-          {
-            $arr['oxvendorid'] = $shop_art->manufacturers_id();
-          }
-          else
-          {
             $arr['oxvendorid'] = $shop_art->vendors_id();
             $arr['oxmanufacturerid'] = $shop_art->manufacturers_id();
-          }
+
 
         foreach($arr as $key=>$val)
           {

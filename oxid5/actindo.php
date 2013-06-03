@@ -8,11 +8,11 @@
  **
  * @package actindo
  * @author  Patrick Prasse <pprasse@actindo.de>
- * @version $Revision: 3001g$
+ * @version $Revision: 3002g$
  * @copyright Copyright (c) 2007, Patrick Prasse (Schneebeerenweg 26, D-85551 Kirchheim, GERMANY, pprasse@actindo.de)
  */
 
-define( 'ACTINDO_SHOPCONN_REVISION', '$Revision: 3001g$' );
+define( 'ACTINDO_SHOPCONN_REVISION', '$Revision: 3002g$' );
 define( 'ACTINDO_PROTOCOL_REVISION', '2.'.substr( ACTINDO_SHOPCONN_REVISION, 11, -2 ) );
 
 /* change dir into admin interface and include application_top.php */
@@ -668,7 +668,7 @@ function actindo_get_time( $params )
  */
 function shop_get_connector_version( &$response )
 {
-  $revision = '$Revision: 3001g$';
+  $revision = '$Revision: 3002g$';
   $response->set_revision( $revision );
   $response->set_protocol_version( '2.'.substr( $revision, 11, -2 ) );
   $response->set_shop_type( act_get_shop_type( ) );
