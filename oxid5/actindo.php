@@ -8,12 +8,15 @@
  **
  * @package actindo
  * @author  Patrick Prasse <pprasse@actindo.de>
- * @version $Revision: 3002g$
+ * @version $Revision: 3003g$
  * @copyright Copyright (c) 2007, Patrick Prasse (Schneebeerenweg 26, D-85551 Kirchheim, GERMANY, pprasse@actindo.de)
  */
 
-define( 'ACTINDO_SHOPCONN_REVISION', '$Revision: 3002g$' );
-define( 'ACTINDO_PROTOCOL_REVISION', '2.'.substr( ACTINDO_SHOPCONN_REVISION, 11, -2 ) );
+define( 'ACTINDO_SHOPCONN_REVISION', '$Revision: 3003g$' );
+preg_match('/\$Revision: ([^\$]+)\$/', ACTINDO_SHOPCONN_REVISION, $matches);
+
+define( 'ACTINDO_PROTOCOL_REVISION_MINOR',trim($matches[1]));
+define( 'ACTINDO_PROTOCOL_REVISION', '2.'.ACTINDO_PROTOCOL_REVISION_MINOR);
 
 /* change dir into admin interface and include application_top.php */
 if( !strlen($wd) || !strlen($dwd) || $dwd == '/' || !is_file($dwd.'/core/oxconfig.php') )
@@ -668,9 +671,8 @@ function actindo_get_time( $params )
  */
 function shop_get_connector_version( &$response )
 {
-  $revision = '$Revision: 3002g$';
-  $response->set_revision( $revision );
-  $response->set_protocol_version( '2.'.substr( $revision, 11, -2 ) );
+  $response->set_revision( ACTINDO_SHOPCONN_REVISION );
+  $response->set_protocol_version( ACTINDO_PROTOCOL_REVISION );
   $response->set_shop_type( act_get_shop_type( ) );
   $response->set_shop_version( $GLOBALS['myConfig']->getVersion().'-'.$GLOBALS['myConfig']->getEdition().'-r'.$GLOBALS['myConfig']->getRevision() );
   $response->set_default_charset( 'UTF-8' );
