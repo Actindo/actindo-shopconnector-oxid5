@@ -378,6 +378,7 @@ function __import_single_product( &$product, &$result )
     'oxmaxdeltime'=>$maxdl,
     'oxdeltimeunit'=>$delunit,
     'oxmpn'=>$shop_art->products_mpn(),
+    'oxshopid'=>'oxbaseshop'
   );
   if( is_object($product->description(0)) )
   {
@@ -820,6 +821,7 @@ function _do_import_attributes( $art_oxid, &$product, &$result )
             'oxdeltimeunit'=>$delunit,
             'oxmpn'=>$shop_art->products_mpn(),
             'oxbprice'=>$attrproduct->ek()?$attrproduct->ek():$product->ek(), 
+            'oxshopid'=>'oxbaseshop'
           );
 
             $arr['oxvendorid'] = $shop_art->vendors_id();
@@ -859,6 +861,7 @@ function _do_import_attributes( $art_oxid, &$product, &$result )
         $child_art_data['oxmpn']='';
         $child_art_data['oxvendorid']='';
         $child_art_data['oxmanufacturerid']='';
+        $child_art_data['oxbaseshop'];
         }
           }
 

@@ -8,14 +8,12 @@
  **
  * @package actindo
  * @author  Patrick Prasse <pprasse@actindo.de>
- * @version $Revision: 3003g$
+ * @version $Revision: 3004g$
  * @copyright Copyright (c) 2007, Patrick Prasse (Schneebeerenweg 26, D-85551 Kirchheim, GERMANY, pprasse@actindo.de)
  */
 
-define( 'ACTINDO_SHOPCONN_REVISION', '$Revision: 3003g$' );
-preg_match('/\$Revision: ([^\$]+)\$/', ACTINDO_SHOPCONN_REVISION, $matches);
-
-define( 'ACTINDO_PROTOCOL_REVISION_MINOR',trim($matches[1]));
+define( 'ACTINDO_SHOPCONN_REVISION', '$Revision: 3004g$' );
+define( 'ACTINDO_PROTOCOL_REVISION_MINOR',trim(substr(ACTINDO_SHOPCONN_REVISION,11,-1)));
 define( 'ACTINDO_PROTOCOL_REVISION', '2.'.ACTINDO_PROTOCOL_REVISION_MINOR);
 
 /* change dir into admin interface and include application_top.php */

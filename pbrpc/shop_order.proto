@@ -151,6 +151,7 @@ message ShopOrder
   optional string webshop_order_klarna_pclass = 20;
 
   optional string onetierarztnr = 21;
+  optional string marketing_campaign_1 = 22;
 }
 
 message ShopOrdersListResponse

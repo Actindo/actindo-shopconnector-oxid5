@@ -555,6 +555,10 @@ class ShopOrder extends PBMessage
     $this->fields["21"] = "PBString";
     $this->fieldnames["21"] = "onetierarztnr";
     $this->values["21"] = "";
+    
+    $this->fields["22"] = "PBString";
+    $this->fieldnames["22"] = "marketing_campaign_1";
+    $this->values["22"] = "";
 
   }
   function order_id()
@@ -741,6 +745,13 @@ class ShopOrder extends PBMessage
   function set_onetierarztnr($value)
   {
     return $this->_set_value("21", $value);
+  }
+  
+  function marketing_campaign_1(){
+      return $this->_get_value("22");
+  }
+  function set_marketing_campaign_1($value){
+      return $this->_set_value("22", $value);
   }
 }
 class ShopOrdersListResponse extends PBMessage
