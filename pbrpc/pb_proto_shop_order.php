@@ -558,7 +558,23 @@ class ShopOrder extends PBMessage
     
     $this->fields["22"] = "PBString";
     $this->fieldnames["22"] = "marketing_campaign_1";
-    $this->values["22"] = "";
+    $this->values["22"] = "";  
+  
+    $this->fields["23"] = "PBString";
+    $this->fieldnames["23"] = "marketing_campaign_2";
+    $this->values["23"] = "";
+
+    $this->fields["24"] = "PBString";
+    $this->fieldnames["24"] = "payment_type";
+    $this->values["24"] = "";
+
+    $this->fields["25"] = "PBString";
+    $this->fieldnames["25"] = "payment_order_id";
+    $this->values["25"] = "";
+
+    $this->fields["26"] = "PBString";
+    $this->fieldnames["26"] = "payed_date";
+    $this->values["26"] = "";
 
   }
   function order_id()
@@ -753,6 +769,33 @@ class ShopOrder extends PBMessage
   function set_marketing_campaign_1($value){
       return $this->_set_value("22", $value);
   }
+  function marketing_campaign_2(){
+      return $this->_get_value("23");
+  }
+  function set_marketing_campaign_2($value){
+      return $this->_set_value("23", $value);
+  }
+
+    function payment_type(){
+        return $this->_get_value("24");
+    }
+    function set_payment_type($value){
+        return $this->_set_value("24", $value);
+    }
+
+    function payment_order_id(){
+        return $this->_get_value("25");
+    }
+    function set_payment_order_id($value){
+        return $this->_set_value("25", $value);
+    }
+
+    function payed_date(){
+        return $this->_get_value("26");
+    }
+    function set_payed_date($value){
+        return $this->_set_value("26", $value);
+    }
 }
 class ShopOrdersListResponse extends PBMessage
 {

@@ -152,6 +152,11 @@ message ShopOrder
 
   optional string onetierarztnr = 21;
   optional string marketing_campaign_1 = 22;
+  optional string marketing_campaign_2 = 23;
+  
+  optional string payment_type = 24;
+  optional string payment_order_id = 25;
+  optional string payed_date = 26;
 }
 
 message ShopOrdersListResponse
