@@ -112,8 +112,8 @@ function import_orders_set_status( $request )
 
 function import_orders_set_trackingcode( $request )
 {
-  require_once getShopBasePath() . 'core/oxorderarticle.php';
-  require_once getShopBasePath() . 'core/oxorder.php';
+  require_once getShopBasePath() . 'application/models/oxorderarticle.php';
+  require_once getShopBasePath() . 'application/models/oxorder.php';
 
   $response = new ShopOrderSetTrackingcodeResponse();
   $response->set_order_id( $request->order_id() );

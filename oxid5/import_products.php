@@ -378,6 +378,7 @@ function __import_single_product( &$product, &$result )
     'oxmaxdeltime'=>$maxdl,
     'oxdeltimeunit'=>$delunit,
     'oxmpn'=>$shop_art->products_mpn(),
+    'oxshopid'=>'oxbaseshop'
   );
   if( is_object($product->description(0)) )
   {
@@ -385,16 +386,8 @@ function __import_single_product( &$product, &$result )
     $arr['oxurldesc'] = $product->description(0)->products_url();
   }
 
-
-  if( $GLOBALS['myConfig']->getRevision() < 18998 )
-  {
-    $arr['oxvendorid'] = $shop_art->manufacturers_id();
-  }
-  else
-  {
     $arr['oxvendorid'] = $shop_art->vendors_id();
     $arr['oxmanufacturerid'] = $shop_art->manufacturers_id();
-  }
 
   $_pp_map = array(
     -1 => 'oxtprice',
@@ -859,17 +852,12 @@ function _do_import_attributes( $art_oxid, &$product, &$result )
             'oxdeltimeunit'=>$delunit,
             'oxmpn'=>$shop_art->products_mpn(),
             'oxbprice'=>$attrproduct->ek()?$attrproduct->ek():$product->ek(), 
+            'oxshopid'=>'oxbaseshop'
           );
 
-          if( $GLOBALS['myConfig']->getRevision() < 18998 )
-          {
-            $arr['oxvendorid'] = $shop_art->manufacturers_id();
-          }
-          else
-          {
             $arr['oxvendorid'] = $shop_art->vendors_id();
             $arr['oxmanufacturerid'] = $shop_art->manufacturers_id();
-          }
+
 
         foreach($arr as $key=>$val)
           {
@@ -904,6 +892,7 @@ function _do_import_attributes( $art_oxid, &$product, &$result )
         $child_art_data['oxmpn']='';
         $child_art_data['oxvendorid']='';
         $child_art_data['oxmanufacturerid']='';
+        $child_art_data['oxbaseshop'];
         }
           }
 

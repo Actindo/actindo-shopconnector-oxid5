@@ -435,7 +435,7 @@ function _do_export_attributes( &$prod, &$art )
     $ca->set_art_nr( empty($child['oxartnum'])?$prod['oxartnum']._mkartnr($combination,$attr_models):$child['oxartnum'] );
 
     $data = new ArtikelAttributesCombinationAdvanced_CombinationAdvancedData();
-    $data->set_products_status( $child['oxactive'] );
+    $data->set_products_status( true);
 
 
     _do_export_pricegroups( $child, $ca );
@@ -530,7 +530,7 @@ function _do_export_attributes( &$prod, &$art )
       }
 
       $data = new ArtikelAttributesCombinationAdvanced_CombinationAdvancedData();
-      $data->set_products_status(0);
+      $data->set_products_status(false);
 
     $attr_shop_product = new AttributeShopProduct();
     $shop_art=new ArtikelShopData();
