@@ -16,6 +16,8 @@
 
 define( 'PBRPC_WIRE_CHARSET', 'UTF-8' );
 
+define('ACTINDO_RPCHANDLER','ACTINDOPBRPC');
+#define('ACTINDO_RPCHANDLER','PROTOBUFRPCUTF8');
 
 /**
  * generic error reporter
@@ -217,7 +219,7 @@ $arr = array(
 if( function_exists('actindo_get_cryptmode') && isset($_REQUEST['get_cryptmode']) )
 {
   $str = actindo_get_cryptmode();
-  $str .= (strlen($str) ? '&' : '').'&connector_type=ACTINDOPBRPC';
+  $str .= (strlen($str) ? '&' : '').'&connector_type='.ACTINDO_RPCHANDLER;
   echo $str;
   return;
 }
