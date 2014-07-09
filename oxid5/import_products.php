@@ -540,6 +540,19 @@ function __import_single_product( &$product, &$result )
     return;
   }
 
+  #bug #94491
+  //set article sub shop
+  $res = _do_import_subshops($art_oxid, $product, $result);
+  $result->set_ok( TRUE );
+  if( !$res )
+  {
+    $result->set_ok( FALSE );
+    $result->set_errno( EIO );
+    $result->set_error( "Fehler beim Zuordnen des Sub Shops" );
+    return;
+  }
+  
+  
   $result->set_ok( TRUE );
 }
 
@@ -642,6 +655,24 @@ function _do_import_seo($art_oxid,$oxseo_array,&$result)
   }
 
 return true;
+}
+
+#bug #94491
+function _do_import_subshops($art_oxid, &$product, &$result){
+	if($product->multistore_permission_size()>0)
+		$storeid=1;
+		for($i=0;$i<$product->multistore_permission_size();$i++){
+			$storeid += (int)$product->multistore_permission($i)->included();
+		}		
+		$sql = 'UPDATE oxarticles set oxshopincl=\''.esc($storeid).'\' WHERE oxid=\''.esc($art_oxid).'\';';
+		$return = act_db_query($sql);
+		if($return === false){
+			$result->set_ok(FALSE);
+			$result->set_errno(EIO);
+			$result->set_error( "Fehler beim einfuegen/aendern der Shop-Sichtbarkeit für shop $storeid" );
+			return;
+		}
+	return true;
 }
 
 function _do_import_attributes( $art_oxid, &$product, &$result )
