@@ -140,6 +140,10 @@ class Payment_L extends PBMessage
     $this->fields["6"] = "PBString";
     $this->fieldnames["6"] = "kto_inhaber";
     $this->values["6"] = "";
+
+    $this->fields['7']     = 'PBString';
+    $this->fieldnames['7'] = 'swift';
+    $this->values['7']     = '';
   }
   function address_iban()
   {
@@ -188,6 +192,15 @@ class Payment_L extends PBMessage
   function set_kto_inhaber($value)
   {
     return $this->_set_value("6", $value);
+  }
+
+  function swift()
+  {
+      return $this->_get_value('7');
+  }
+  function set_swift($value)
+  {
+      return $this->_set_value('7', $value);
   }
 }
 class Payment_PP extends PBMessage

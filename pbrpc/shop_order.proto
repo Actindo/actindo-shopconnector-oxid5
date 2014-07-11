@@ -36,6 +36,7 @@ message Payment_L
   required string iban = 4;
   required string bic = 5;
   required string kto_inhaber = 6;
+  optional string swift = 7;
 }
 
 message Payment_PP
