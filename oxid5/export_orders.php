@@ -185,8 +185,16 @@ function export_orders_list( $request )
       $payment_l = new Payment_L();
 
       $bd = _get_debitnote_paymentdata($order['oxpaymentid']);
-      $payment_l->set_kto( $bd['lsktonr'] );
-      $payment_l->set_blz( $bd['lsblz'] );
+      if(preg_match('/[a-zA-Z]{2}[0-9]{2}[a-zA-Z0-9]{4}[0-9]{7}([a-zA-Z0-9]?){0,16}/', $bd['lsktonr']))
+      {
+          $payment_l->set_iban($bd['lsktonr']);
+          $payment_l->set_swift($bd['lsblz']);
+      }
+      else
+      {
+          $payment_l->set_kto($bd['lsktonr']);
+          $payment_l->set_blz($bd['lsblz']);
+      }
       $payment_l->set_kto_inhaber( $bd['lsktoinhaber'] );
 
       $payment->set_ls( $payment_l );
