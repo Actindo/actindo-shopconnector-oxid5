@@ -97,7 +97,8 @@ function __do_export_products( $just_list=TRUE, $search_request, &$response )
     $shop_art->set_products_date_available(datetime_to_timestamp($prod['oxdelivery'])>0?datetime_to_timestamp($prod['oxdelivery']):datetime_to_timestamp($prod['oxactivefrom']) );
     $shop_art->set_products_sort( $prod['oxsort'] );
 
-    if( $GLOBALS['myConfig']->getRevision() < 18998 )
+    $revision = $GLOBALS['myConfig']->getRevision();
+    if( intval($revision) == $revision && $revision < 18998 )
     {
       $shop_art->set_manufacturers_id( $prod['oxvendorid'] );
     }
